@@ -44,7 +44,7 @@ class FileStorage:
             with open(self.__file_path, 'r') as f: 
                 dictionary = json.loads(f)
                 for key, value in dictionary.items():
-                    self.__objects = keySS
+                    self.__objects = key
         except:
             pass
     
