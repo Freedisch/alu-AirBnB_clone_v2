@@ -1,7 +1,7 @@
 ''' new class filestorage that stores new objects in a json file''' 
 
 
-from models import BaseModel
+import models
 import json
 
 ''' class filestorage that will serialize instances of an object into a Json file. 
