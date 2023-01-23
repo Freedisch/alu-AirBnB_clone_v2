@@ -1,19 +1,18 @@
-#!/usr/bin/python3
+
 
 ''' class BaseModel that defines all common attributes/methods for other classes:'''
 
 import uuid
 from datetime import datetime
-
+import json
+from models import storage
 
 class BaseModel:
     ''' defines all common attributes/methods for other classes:'''
 
     def __init__(self, *args, **kwargs):
+        
         ''' Initialise the Basemodel'''
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
         if kwargs: 
             datetime_obj = "%Y-%m-%dT%H:%M:%S.%f"
             if len(kwargs) == 0:
@@ -23,6 +22,11 @@ class BaseModel:
                     if key == "created_at" or Key == "updated_at":
                         value = datetime.strptime(value, datetime_obj)
                     setattr(self, key, value)
+        else: 
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self)
     def __str__(self):
         ''' string representation of object'''
         name = type(self).__name__
@@ -34,6 +38,7 @@ class BaseModel:
         ''' update the date of module update to current date'''
         new_time = datetime.now().isoformat()
         return new_time
+        storage.save()
 
     def to_dict(self):
         ''' append basemodel with classname print the dictionary of basemodel'''
@@ -43,3 +48,21 @@ class BaseModel:
         name = type(self).__name__
         dictionary["__class__"] = name
         return self.__dict__
+
+
+
+obj = BaseModel()
+new = (obj.__class__.__name__ + "." +obj.id)
+
+fn = "file.json" 
+dictionary1 = {new:obj}
+# print(dictionary1)
+dictionary2 = {}
+for key, value in dictionary1.items():
+    dictionary2[key] = value.to_dict()
+with open(fn, "w") as n:
+    json.dump(dictionary2, n)
+with open(fn, "r") as f:
+    print(f.read()) 
+
+
