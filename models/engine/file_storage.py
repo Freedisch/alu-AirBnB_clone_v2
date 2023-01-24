@@ -42,7 +42,7 @@ class FileStorage:
         try:
             with open(self.__file_path, 'r') as f: 
                 dictionary = json.load(f)
-                for key in dictionary:
+                for key in dictionary.keys():
                     self.__objects[key] = eval(dictionary[key]['__class__'])(**dictionary[key])
         except:
             pass
