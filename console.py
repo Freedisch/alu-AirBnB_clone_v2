@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+'''class cmd that defines the functions of a custom command line interpreter'''
+
 import cmd
 import sys
 
