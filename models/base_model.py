@@ -5,6 +5,7 @@
 import uuid
 from datetime import datetime
 import json
+from models.engine.file_storage import FileStorage
 from models import storage
 
 class BaseModel:
@@ -19,7 +20,7 @@ class BaseModel:
                 for key, value in kwargs.items(): 
                     if key == "__class__":
                         continue
-                    if key == "created_at" or Key == "updated_at":
+                    if key == "created_at" or key == "updated_at":
                         value = datetime.strptime(value, datetime_obj)
                     setattr(self, key, value)
         else: 
@@ -48,21 +49,3 @@ class BaseModel:
         name = type(self).__name__
         dictionary["__class__"] = name
         return self.__dict__
-
-
-
-obj = BaseModel()
-new = (obj.__class__.__name__ + "." +obj.id)
-
-fn = "file.json" 
-dictionary1 = {new:obj}
-# print(dictionary1)
-dictionary2 = {}
-for key, value in dictionary1.items():
-    dictionary2[key] = value.to_dict()
-with open(fn, "w") as n:
-    json.dump(dictionary2, n)
-with open(fn, "r") as f:
-    print(f.read()) 
-
-
