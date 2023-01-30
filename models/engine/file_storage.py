@@ -2,9 +2,11 @@
 
 
 import json
+from models.base_model import BaseModel
 
 ''' class filestorage that will serialize instances of an object into a Json file. 
 The class will also deserialize Json files into instances'''
+
 
 class FileStorage: 
     
@@ -39,15 +41,13 @@ class FileStorage:
         
         '''deserializes the json file (__file_path) to t
         the __objects dictionary'''
-        from models.base_model import BaseModel
 
         try:
             with open(self.__file_path, 'r') as f: 
                 dictionary = json.load(f)
                 for item in dictionary.values():
                     cls_name = item['__class__']
-                    del item["__class__"]
-                    # self.new(eval(cls_name)(**item))
+                    self.new(eval(cls_name)(**item))
         except FileNotFoundError:
             pass
     
