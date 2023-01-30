@@ -23,10 +23,10 @@ class FileStorage:
     def new(self, obj):
 
         ''' input the new object into __objects.'''
-        ''' classname.id is the key and obj name is value''' 
-        k = obj.__class__.__name__ + "." +obj.id
-        self.__objects.update({k: obj})
-    
+        ''' classname.id is the key and obj name is value'''
+
+        ocname = obj.__class__.__name__
+        self.__objects["{}.{}".format(ocname, obj.id)] = obj
     def save(self):
         
         '''serialize new object into __file_path'''
