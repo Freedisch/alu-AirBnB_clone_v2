@@ -2,7 +2,7 @@
 
 
 import json
-from models.base_model import BaseModel
+
 
 ''' class filestorage that will serialize instances of an object into a Json file. 
 The class will also deserialize Json files into instances'''
@@ -37,8 +37,8 @@ class FileStorage:
             dictionary[obj] = self.__objects[obj].to_dict()
         with open(self.__file_path, "w") as new_file:
             json.dump(dictionary, new_file)
-    def reload(self): 
-        
+    def reload(self):
+        from models.base_model import BaseModel
         '''deserializes the json file (__file_path) to t
         the __objects dictionary'''
 
