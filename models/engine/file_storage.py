@@ -47,7 +47,7 @@ class FileStorage:
                 for item in dictionary.values():
                     cls_name = item['__class__']
                     del item["__class__"]
-                    self.new(eval(cls_name)(**item))
+                    # self.new(eval(cls_name)(**item))
         except FileNotFoundError:
             pass
     
