@@ -39,7 +39,7 @@ class FileStorage:
         
         '''deserializes the json file (__file_path) to t
         the __objects dictionary'''
-
+        from models.base_model import BaseModel
 
         try:
             with open(self.__file_path, 'r') as f: 
