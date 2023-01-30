@@ -31,8 +31,8 @@ class FileStorage:
         
         '''serialize new object into __file_path'''
         dictionary = {}
-        for key, value in self.__objects.items():
-            dictionary[key] = value.to_dict()
+        for obj in self.__objects:
+            dictionary[obj] = self.__objects[obj].to_dict()
         with open(self.__file_path, "w") as new_file:
             json.dump(dictionary, new_file)
     def reload(self): 
