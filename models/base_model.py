@@ -14,7 +14,7 @@ class BaseModel:
         ''' Initialise the Basemodel'''
         if kwargs: 
             datetime_obj = "%Y-%m-%dT%H:%M:%S.%f"
-            if len(kwargs) == 0:
+            if len(kwargs) != 0:
                 for key, value in kwargs.items(): 
                     if key == "__class__":
                         continue
