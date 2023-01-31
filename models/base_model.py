@@ -1,49 +1,61 @@
 #!/usr/bin/python3
-
-''' class BaseModel that defines all common attributes/methods for other classes:'''
-
-import uuid
-from datetime import datetime
+"""Defines BaseModel class."""
 import models
+from uuid import uuid4
+from datetime import datetime
+
 
 class BaseModel:
-    ''' defines all common attributes/methods for other classes:'''
+    """
+        Class Base
+        Defines all common attributes/methods for other classes
+        Attr :
+                id: string - assigned with an uuid when an instance is created
+                created_at: datetime - assigned with the current datetime
+                when an instance is created
+                updated_at: datetime - assigned with the current datetime
+                when an instance is created.
+                It will be updated every time the object change.
+    """
 
     def __init__(self, *args, **kwargs):
-        
-        ''' Initialise the Basemodel'''
-        if kwargs != {}:
-            for key, value in kwargs.items():
-                if key == '__class__':
-                    continue
-                if key == 'created_at':
-                    value = datetime.fromisoformat(value)
-                elif key =='updated_at':
-                    value = datetime.fromisoformat(value)
-                self.__setattr__(key, value)
-        else: 
-            self.id = str(uuid.uuid4())
+        """Initialize new BaseModel."""
+
+        tform = "%Y-%m-%dT%H:%M:%S.%f"
+
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
+
+        if kwargs:
+            kwargs["created_at"] = datetime.strptime(
+                kwargs["created_at"], tform)
+            kwargs["updated_at"] = datetime.strptime(
+                kwargs["updated_at"], tform)
+            del kwargs["__class__"]
+            self.__dict__.update(kwargs)
+        else:
+            self.id = str(uuid4())
             self.created_at = datetime.now()
-            self.updated_at = self.created_at
-            
+            self.updated_at = datetime.now()
             models.storage.new(self)
-    def __str__(self):
-        ''' string representation of object'''
-        name = type(self).__name__
-        number = self.id
-        dictionary = self.__dict__
-        return f'[{name}] ({number}) {dictionary}'
 
     def save(self):
-        ''' update the date of module update to current date'''
+        """Set updated_at with current datetime."""
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        ''' append basemodel with classname print the dictionary of basemodel'''
-        self.created_at = datetime.now().isoformat()
-        self.updated_at = datetime.now().isoformat()
-        dictionary = self.__dict__
-        name = type(self).__name__
-        dictionary["__class__"] = name
-        return dictionary
+        """Return dictionary of BaseModel instance.
+        Includes key/value pair __class__.
+        """
+        rdict = self.__dict__.copy()
+        rdict["created_at"] = self.created_at.isoformat()
+        rdict["updated_at"] = self.updated_at.isoformat()
+        rdict["__class__"] = self.__class__.__name__
+        return rdict
+
+    def __str__(self):
+        """Return print/str representation of BaseModel instance."""
+        clname = self.__class__.__name__
+        return "[{}] ({}) {}".format(clname, self.id, self.__dict__)
