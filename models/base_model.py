@@ -21,7 +21,7 @@ class BaseModel:
                     if key == "created_at" or Key == "updated_at":
                         self.__dict__[key] = datetime.strptime(value, datetime_obj)
                     else:
-                        setattr(self, key, value)
+                        self.__dict__[key] = value
         else: 
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
