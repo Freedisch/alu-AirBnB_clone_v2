@@ -4,9 +4,8 @@
 
 import uuid
 from datetime import datetime
-import json
-import models.engine.file_storage
-import os
+import models
+
 class BaseModel:
     ''' defines all common attributes/methods for other classes:'''
 
