@@ -46,4 +46,4 @@ class BaseModel:
         dictionary = self.__dict__
         name = type(self).__name__
         dictionary["__class__"] = name
-        return self.__dict__
+        return dictionary

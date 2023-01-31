@@ -43,9 +43,11 @@ class FileStorage:
         the __objects dictionary''' 
         try:
             with open(self.__file_path, 'r') as f: 
-                dictionary = json.loads(f)
-                for key, value in dictionary.items():
-                    self.__objects.update({key: value})
-        except:
+                serial_dictionary = json.load(f)
+                for value in serial_dictionary.values():
+                    cls_name = value['__class__']
+                    self.new(eval(cls_name)(str(value)))
+                   
+        except FileNotFoundError():
             pass
 
