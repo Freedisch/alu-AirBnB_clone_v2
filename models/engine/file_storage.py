@@ -43,12 +43,11 @@ class FileStorage:
         the __objects dictionary''' 
         from models.base_model import BaseModel
         try:
-            with open(self.__file_path, 'r') as f: 
-                serial_dictionary = json.load(f)
-                for item in serial_dictionary.values():
+            with open(self.__file_path) as f:
+                dictionary = json.load(f)
+                for item in dictionary.values():
                     cls_name = item['__class__']
                     self.new(eval(cls_name + "(**" + str(item) + ")"))
-                   
-        except FileNotFoundError():
+        except FileNotFoundError:
             pass
 
