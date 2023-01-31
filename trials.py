@@ -13,3 +13,17 @@ my_model.name = "My_First_Model"
 my_model.my_number = 89
 my_model.save()
 print(my_model)
+
+if len(kwargs) != 0:
+    for key, value in kwargs.items():
+        if key == "__class__":
+            continue
+        if key == "created_at" or key == "updated_at":
+            self.__dict__[key] = datetime.strptime(value, datetime_obj)
+        else:
+            setattr(self, key, value)
+        else:
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
+        storage.new(self)
