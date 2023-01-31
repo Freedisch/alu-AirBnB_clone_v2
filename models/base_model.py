@@ -43,9 +43,8 @@ class BaseModel:
 
     def to_dict(self):
         ''' append basemodel with classname print the dictionary of basemodel'''
-        self.created_at = datetime.now().isoformat()
-        self.updated_at = datetime.now().isoformat()
-        dictionary = self.__dict__
-        name = type(self).__name__
-        dictionary["__class__"] = name
+        dictionary = self.__dict__.copy()
+        dictionary["created_at"] = self.created_at.isoformat()
+        dictionary["created_at"] = self.created_at.isoformat()
+        dictionary["__class__"] = self.__class__.__name__
         return dictionary
