@@ -4,7 +4,7 @@
 
 import uuid
 from datetime import datetime
-import models
+from models import storage
 
 class BaseModel:
     ''' defines all common attributes/methods for other classes:'''
@@ -26,7 +26,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            models.storage.new(self)
+            storage.new(self)
     def __str__(self):
         ''' string representation of object'''
         name = type(self).__name__
@@ -49,3 +49,19 @@ class BaseModel:
         dictionary["__class__"] = name
         return self.__dict__
 
+
+all_objs = storage.all()
+print("-- Reloaded objects --")
+for obj_id in all_objs.keys():
+    obj = all_objs[obj_id]
+    print(obj)
+
+print("-- Create a new object --")
+my_model = BaseModel()
+my_model.name = "My_First_Model"
+my_model.my_number = 89
+my_model.save()
+print(my_model)
+
+model2 = storage.reload()
+print(model2)
