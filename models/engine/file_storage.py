@@ -4,12 +4,12 @@
 import json
 
 
-''' class filestorage that will serialize instances of an object into a Json file. 
-The class will also deserialize Json files into instances'''
 
-class FileStorage: 
-    
-    ''' private class attributes''' 
+class FileStorage:
+    ''' class filestorage that will serialize instances of an object into a Json file.
+    The class will also deserialize Json files into instances
+     private class attributes'''
+
     __file_path = 'file.json'
     __objects = {}
     def __init__(self):
@@ -47,8 +47,7 @@ class FileStorage:
                 dictionary = json.load(f)
                 for item in dictionary.values():
                     cls_name = item['__class__']
-                    del item["__class__"]
-                    self.new(eval(cls_name)(**item))
+                    self.new(eval(cls_name + "(**" + str(item) + ")"))
         except FileNotFoundError:
             pass
 
