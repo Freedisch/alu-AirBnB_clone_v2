@@ -36,9 +36,8 @@ class BaseModel:
 
     def save(self):
         ''' update the date of module update to current date'''
-        new_time = datetime.now().isoformat()
-        return new_time
-        storage.save()
+        self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         ''' append basemodel with classname print the dictionary of basemodel'''
@@ -47,4 +46,4 @@ class BaseModel:
         dictionary = self.__dict__
         name = type(self).__name__
         dictionary["__class__"] = name
-        return self.__dict__
+        return dictionary
