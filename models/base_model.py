@@ -13,7 +13,7 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Initialize new BaseModel."""
 
-        tform = "%Y-%m-%d"
+        tform = "%Y-%m-%dT%H:%M:%S.%f"
 
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
