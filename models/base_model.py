@@ -8,30 +8,28 @@ import models
 
 
 class BaseModel:
-    """Defines all common attributes/methods for other classes."""
+    ''' defines all common attributes/methods for other classes:'''
 
     def __init__(self, *args, **kwargs):
-        """Initialize new BaseModel."""
-
-        tform = "%Y-%m-%dT%H:%M:%S.%f"
+        
+        ''' Initialise the Basemodel'''
 
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-
         if kwargs:
-            if "created_at" in kwargs:
-                kwargs["created_at"] = datetime.strptime(
-                    kwargs["created_at"], tform)
-            if "updated_at" in kwargs:
-                kwargs["updated_at"] = datetime.strptime(
-                    kwargs["updated_at"], tform)
-            if "__class__" in kwargs:
-                del kwargs["__class__"]
-            self.__dict__.update(kwargs)
-
-        models.storage.new(self)
-
+           datetime_obj = "%Y-%m-%dT%H:%M:%S.%f"
+           kwargs["created_at"] = datetime.strptime(
+                    kwargs["created_at"], datetime_obj)
+           kwargs["updated_at"] = datetime.strptime(
+                    kwargs["updated_at"], datetime_obj)
+           del kwargs["__class__"]
+           self.__dict__.update(kwargs)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            models.storage.new(self)
     def __str__(self):
         ''' string representation of object'''
         name = type(self).__name__
@@ -41,14 +39,16 @@ class BaseModel:
 
     def save(self):
         ''' update the date of module update to current date'''
-        self.updated_at = datetime.now()
-        models.storage.save()
+        new_time = datetime.now().isoformat()
+        return new_time
+        storage.save()
 
     def to_dict(self):
         ''' append basemodel with classname print the dictionary of basemodel'''
-        dictionary = self.__dict__.copy()
+        self.created_at = datetime.now().isoformat()
+        self.updated_at = datetime.now().isoformat()
+        dictionary = self.__dict__
         name = type(self).__name__
         dictionary["__class__"] = name
-        dictionary["created_at"] = self.created_at.isoformat()
-        dictionary["updated_at"] = self.updated_at.isoformat()
-        return dictionary
+        return self.__dict__
+

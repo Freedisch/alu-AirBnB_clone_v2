@@ -36,7 +36,7 @@ class HBNBCommand(cmd.Cmd):
 
 #     add new functions to the CLI
 
-    def create(self, cls):
+    def do_create(self, cls):
 
         '''class name to create new basemodel instance'''
         if not cls:
@@ -48,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
             new.save()
             print(new.id)
 
-    def show(self, cls_id):
+    def do_show(self, cls_id):
 
         '''show string representation of instance'''
         # Break the cls_id argument
@@ -66,8 +66,28 @@ class HBNBCommand(cmd.Cmd):
             print(objects_dict[new_rep])
         else:
             print("** no instance found **")
+    def do_destroy(self, cls_id):
+
+        '''show string representation of instance'''
+        # Break the cls_id argument
+        args = cls_id.split()
+        new_rep = args[0]+'.'+args[1]
+        # create a variable to store all objects
+        objects_dict = storage.all()
+        if len(args) == 0:
+            print("**class name missing**")
+        elif args[0] not in class_names:
+            print("**class doesn't exist**")
+        elif len(args) != 2:
+            print("**instance id is missing**")
+        elif new_rep not in objects_dict:
+            print("** no instance found **")
+        else:
+            del objects_dict[new_rep]
+            storage.save()
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+
 
 
