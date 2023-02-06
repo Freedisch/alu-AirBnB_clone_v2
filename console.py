@@ -57,11 +57,11 @@ class HBNBCommand(cmd.Cmd):
         # create a variable to store all objects
         objects_dict = storage.all()
         if len(args) == 0:
-            print("**class name missing**")
+            print("** class name missing **")
         elif args[0] not in class_names:
-            print("**class doesn't exist**")
+            print("** class doesn't exist **")
         elif len(args) != 2:
-            print("**instance id is missing**")
+            print("** instance id is missing **")
         elif new_rep in objects_dict:
             print(objects_dict[new_rep])
         else:
@@ -75,11 +75,11 @@ class HBNBCommand(cmd.Cmd):
         # create a variable to store all objects
         objects_dict = storage.all()
         if len(args) == 0:
-            print("**class name missing**")
+            print("** class name missing **")
         elif args[0] not in class_names:
-            print("**class doesn't exist**")
+            print("** class doesn't exist **")
         elif len(args) != 2:
-            print("**instance id is missing**")
+            print("** instance id is missing **")
         elif new_rep not in objects_dict:
             print("** no instance found **")
         else:
@@ -92,15 +92,55 @@ class HBNBCommand(cmd.Cmd):
             for obj in obj_dict.values():
                 print(str(obj))
         elif cls not in class_names:
-            print("** class doesn't exist")
+            print("** class doesn't exist **")
         else:
             for key, obj in obj_dict.items():
                 if key.split('.')[0] == cls:
                     print(str(obj))
 
+    def do_update(self, *args):
+
+        args_split = args.split(' ')
+
+        if len(args_split) < 4:
+            args_len = len(args_split)
+            # print(args_len)
+            # print(args_split)
+            if not args:
+                print("** class name missing **")
+                return
+            if args_len == 1:
+                print("** instance id missing **")
+                return
+            if args_len == 2:
+                print("** attribute name missing **")
+                return
+            if args_len == 3:
+                print("** value missing **")
+                return
+
+        else:
+            args_split = args_split[:4]
+
+            cls_name = args_split[0]
+            obj_id = args_split[1]
+            attr_name = args_split[2]
+            attr_value = args_split[3]
+
+            storage = FileStorage()
+            storage.reload()
+            all_objects = storage.all()
+
+            # create a key of the form <class name>.<id> to search in storage
+            user_key = cls_name + '.' + obj_id
+
+            if cls_name not in classes.keys():
+                print("** class doesn't exist **")
+                return
+            if user_key not in all_objects.keys():
+                print("** no instance found **")
+                return
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
-
 
