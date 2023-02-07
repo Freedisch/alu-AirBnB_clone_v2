@@ -6,6 +6,7 @@ import sys
 from models import storage
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+import re
 
 
 # input the class names in a dict for easier access
@@ -98,48 +99,50 @@ class HBNBCommand(cmd.Cmd):
                 if key.split('.')[0] == cls:
                     print(str(obj))
 
-    def do_update(self, *args):
+    def do_update(self, args):
 
-        args_split = args.split(' ')
+        '''update an object with a new value using its class name and id '''
 
-        if len(args_split) < 4:
-            args_len = len(args_split)
-            # print(args_len)
-            # print(args_split)
-            if not args:
-                print("** class name missing **")
-                return
-            if args_len == 1:
-                print("** instance id missing **")
-                return
-            if args_len == 2:
-                print("** attribute name missing **")
-                return
-            if args_len == 3:
-                print("** value missing **")
-                return
+        args_list = args.split()
+        all_objs = storage.all()
 
-        else:
-            args_split = args_split[:4]
+        if len(args_list) == 0:
+            print("** class name missing **")
+            return False
+        cls_name = args_list[0]
 
-            cls_name = args_split[0]
-            obj_id = args_split[1]
-            attr_name = args_split[2]
-            attr_value = args_split[3]
+        if cls_name not in class_names.keys():
+            print("** class doesn't exist ** ")
+            return False
 
-            storage = FileStorage()
-            storage.reload()
-            all_objects = storage.all()
+        if len(args_list) == 1:
+            print("** instance id missing **")
+            return False
+        inst_id = args_list[1]
 
-            # create a key of the form <class name>.<id> to search in storage
-            user_key = cls_name + '.' + obj_id
+        ''' create a key to check for instance in storage.all'''
 
-            if cls_name not in classes.keys():
-                print("** class doesn't exist **")
-                return
-            if user_key not in all_objects.keys():
-                print("** no instance found **")
-                return
+        obj_key = "{}.{}".format(cls_name, inst_id)
+
+        if obj_key not in all_objs:
+            print("** instance not found **")
+            return False
+        if len(args_list) == 2:
+            print("** attribute name missing **")
+            return False
+        attr_name = args_list[2]
+
+        if len(args_list) == 3:
+            print("** value missing **")
+            return False
+        attr_value = args_list[3]
+
+        '''update instance with new values'''
+        obj = all_objs[obj_key]
+
+        obj.__dict__.update({attr_name: attr_value})
+        storage.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
