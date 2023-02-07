@@ -72,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
         '''show string representation of instance'''
         # Break the cls_id argument
         args = cls_id.split()
-        new_rep = args[0]+'.'+args[1]
+        new_rep = "{}.{}".format(args[0], args[1])
         # create a variable to store all objects
         objects_dict = storage.all()
         if len(args) == 0:
