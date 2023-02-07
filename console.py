@@ -50,42 +50,57 @@ class HBNBCommand(cmd.Cmd):
             print(new.id)
 
     def do_show(self, cls_id):
-
         '''show string representation of instance'''
         # Break the cls_id argument
         args = cls_id.split()
-        new_rep = args[0]+'.'+args[1]
         # create a variable to store all objects
         objects_dict = storage.all()
-        if len(args) == 0:
-            print("** class name missing **")
-        elif args[0] not in class_names:
+
+        if len(args) < 2:
+            if len(args) == 0:
+                print("** class name missing **")
+            else:
+                print("** instance id is missing **")
+            return
+
+        if args[0] not in class_names:
             print("** class doesn't exist **")
-        elif len(args) != 2:
-            print("** instance id is missing **")
-        elif new_rep in objects_dict:
+            return
+
+        new_rep = "{}.{}".format(args[0], args[1])
+        if new_rep in objects_dict:
             print(objects_dict[new_rep])
         else:
             print("** no instance found **")
+
     def do_destroy(self, cls_id):
 
         '''show string representation of instance'''
         # Break the cls_id argument
         args = cls_id.split()
-        new_rep = "{}.{}".format(args[0], args[1])
         # create a variable to store all objects
-        objects_dict = storage.all()
+
         if len(args) == 0:
             print("** class name missing **")
-        elif args[0] not in class_names:
+            return False
+        if args[0] not in class_names:
             print("** class doesn't exist **")
-        elif len(args) != 2:
+            return False
+        cls_name = args[0]
+        if len(args) != 2:
             print("** instance id is missing **")
-        elif new_rep not in objects_dict:
+            return False
+        inst_id = args[1]
+        new_rep = "{}.{}".format(cls_name, cls_id)
+        storage = FileStorage()
+        storage.reload()
+        all_objs = storage.all()
+        if new_rep not in all_objs.keys():
             print("** no instance found **")
         else:
-            del objects_dict[new_rep]
+            del all_objs[new_rep]
             storage.save()
+            print("Instance destroyed!")
 
     def do_all(self, cls):
         obj_dict = storage.all()
@@ -112,7 +127,7 @@ class HBNBCommand(cmd.Cmd):
         cls_name = args_list[0]
 
         if cls_name not in class_names.keys():
-            print("** class doesn't exist ** ")
+            print("** class doesn't exist **")
             return False
 
         if len(args_list) == 1:
@@ -125,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
         obj_key = "{}.{}".format(cls_name, inst_id)
 
         if obj_key not in all_objs:
-            print("** instance not found **")
+            print("** no instance found **")
             return False
         if len(args_list) == 2:
             print("** attribute name missing **")
