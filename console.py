@@ -60,7 +60,7 @@ class HBNBCommand(cmd.Cmd):
             if len(args) == 0:
                 print("** class name missing **")
             else:
-                print("** instance id is missing **")
+                print("** instance id missing **")
             return
 
         if args[0] not in class_names:
@@ -88,10 +88,10 @@ class HBNBCommand(cmd.Cmd):
             return False
         cls_name = args[0]
         if len(args) != 2:
-            print("** instance id is missing **")
+            print("** instance id missing **")
             return False
         inst_id = args[1]
-        new_rep = "{}.{}".format(cls_name, cls_id)
+        new_rep = "{}.{}".format(cls_name, inst_id)
         storage = FileStorage()
         storage.reload()
         all_objs = storage.all()
@@ -100,7 +100,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             del all_objs[new_rep]
             storage.save()
-            print("Instance destroyed!")
 
     def do_all(self, cls):
         obj_dict = storage.all()
