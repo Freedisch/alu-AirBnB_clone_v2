@@ -1,6 +1,6 @@
 from models.base_model import BaseModel
 
-class user(BaseModel):
+class User(BaseModel):
 
     '''class User that inherits from BaseModel'''
 
