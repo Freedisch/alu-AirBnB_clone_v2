@@ -13,7 +13,7 @@ import re
 # input the class names in a dict for easier access
 
 class_names = {
-    "BaseModel":BaseModel
+    "BaseModel":BaseModel,
     "User": User
 }
 class HBNBCommand(cmd.Cmd):
