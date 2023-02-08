@@ -14,6 +14,7 @@ import re
 
 class_names = {
     "BaseModel":BaseModel
+    "User": User
 }
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
