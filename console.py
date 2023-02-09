@@ -9,6 +9,7 @@ from models.engine.file_storage import FileStorage
 from models.user import User
 from models.state import State
 from models.city import City
+from models.review import Review
 import re
 
 
@@ -19,6 +20,7 @@ class_names = {
     "User": User,
     "State": State,
     "City": City,
+    "Review": Review,
 }
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
