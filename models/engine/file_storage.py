@@ -1,11 +1,11 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 ''' new class filestorage that stores new objects in a json file'''
 
 import json
 
 
 class FileStorage:
-    ''' class filestorage that will serialize instances of an object into a Json file.
+    ''' class filestorage, serializes object instance.
     The class will also deserialize Json files into instances
      private class attributes'''
 
