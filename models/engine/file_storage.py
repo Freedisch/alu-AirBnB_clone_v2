@@ -51,21 +51,12 @@ class FileStorage:
         from models.place import Place
         from models.amenity import Amenity
 
-        test_dict = {
-            "User": User,
-            "State": State,
-            "City": City,
-            "Review": Review,
-            "Place": Place,
-            "Amenity": Amenity
-        }
-        if not os.path.isfile(FileStorage.__file_path):
-            return
-        with open(FileStorage.__file_path, "r") as test_dict:
-            dictionary = json.load(test_dict)
-            FileStorage.__objects = {}
-            for item in dictionary:
-                # cls_name = item['__class__']
-                # self.new(eval(cls_name + "(**" + str(item) + ")"))
-                cls_name = item.split(".")[0]
-                FileStorage.__objects[item] = test_dict[cls_name](**dictionary[item])
+        
+        try:
+            with open(self.__file_path, "r") as f:
+                dictionary = json.load(f)
+                for item in dictionary.values():
+                    cls_name = item['__class__']
+                    self.new(eval(cls_name + "(**" + str(item) + ")"))
+        except FileNotFoundError:
+            pass
