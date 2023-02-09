@@ -44,6 +44,7 @@ class FileStorage:
         the __objects dictionary'''
         from models.base_model import BaseModel
         from models.user import User
+        from models.state import State
 
         try:
             with open(self.__file_path) as f:

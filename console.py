@@ -7,6 +7,7 @@ from models import storage
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models.user import User
+from models.state import State
 import re
 
 
@@ -14,7 +15,8 @@ import re
 
 class_names = {
     "BaseModel":BaseModel,
-    "User": User
+    "User": User,
+    "State": State,
 }
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
