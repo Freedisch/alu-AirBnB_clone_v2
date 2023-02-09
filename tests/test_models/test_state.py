@@ -16,7 +16,7 @@ class TestState(unittest.TestCase):
         self.assertTrue(issubclass(self.testState.__class__, BaseModel))
 
     def test_name(self):
-        """Test email class attribute."""
+        """Test name is string attribute."""
         self.assertIsInstance(self.testState.name, str)
 
 
