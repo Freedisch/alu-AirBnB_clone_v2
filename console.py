@@ -11,6 +11,7 @@ from models.state import State
 from models.city import City
 from models.review import Review
 from models.place import Place
+from models.amenity import Amenity
 import re
 
 
@@ -23,6 +24,7 @@ class_names = {
     "City": City,
     "Review": Review,
     "Place": Place,
+    "Amenity": Amenity
 
 }
 class HBNBCommand(cmd.Cmd):

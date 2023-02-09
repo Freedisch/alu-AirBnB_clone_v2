@@ -48,6 +48,7 @@ class FileStorage:
         from models.city import City
         from models.review import Review
         from models.place import Place
+        from models.amenity import Amenity
 
         try:
             with open(self.__file_path) as f:
