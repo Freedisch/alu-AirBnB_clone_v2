@@ -17,12 +17,10 @@ class FileStorage:
         pass
 
     def all(self):
-
         ''' return the dictionary rep of objects'''
         return self.__objects
 
     def new(self, obj):
-
         ''' input the new object into __objects.'''
         ''' classname.id is the key and obj name is value'''
 
@@ -30,7 +28,6 @@ class FileStorage:
         self.__objects["{}.{}".format(cls_name, obj.id)] = obj
 
     def save(self):
-
         '''serialize new object into __file_path'''
         dictionary = {}
         for obj in self.__objects:
@@ -39,7 +36,6 @@ class FileStorage:
             json.dump(dictionary, new_file)
 
     def reload(self):
-
         '''deserializes the json file (__file_path) to t
         the __objects dictionary'''
         from models.base_model import BaseModel
@@ -58,9 +54,3 @@ class FileStorage:
                     self.new(eval(cls_name + "(**" + str(item) + ")"))
         except FileNotFoundError:
             pass
-
-
-
-
-
-
