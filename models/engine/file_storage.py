@@ -45,6 +45,7 @@ class FileStorage:
         from models.base_model import BaseModel
         from models.user import User
         from models.state import State
+        from models.city import City
 
         try:
             with open(self.__file_path) as f:
