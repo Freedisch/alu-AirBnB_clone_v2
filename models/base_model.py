@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-''' class BaseModel that defines all common attributes/methods for other classes:'''
+''' class BaseModel:'''
 
 import uuid
 from datetime import datetime
@@ -45,7 +45,7 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        ''' append basemodel with classname print the dictionary of basemodel'''
+        ''' append basemodel with classname'''
         dictionary = self.__dict__.copy()
         name = type(self).__name__
         dictionary["__class__"] = name
