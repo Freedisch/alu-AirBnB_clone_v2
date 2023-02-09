@@ -17,7 +17,7 @@ class TestState(unittest.TestCase):
 
     def test_name(self):
         """Test whether name is string attribute."""
-        self.assertIsInstance(self.testAmenity, str)
+        self.assertIsInstance(self.testAmenity.name, str)
 
 
 if __name__ == '__main__':
