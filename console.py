@@ -18,7 +18,7 @@ import re
 # input the class names in a dict for easier access
 
 class_names = {
-    "BaseModel":BaseModel,
+    "BaseModel": BaseModel,
     "User": User,
     "State": State,
     "City": City,
@@ -27,17 +27,19 @@ class_names = {
     "Amenity": Amenity
 
 }
+
+
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
 
     def do_EOF(self, line):
-
         '''command to exit the program'''
         return True
-    def do_quit(self, arg):
 
+    def do_quit(self, arg):
         '''exit the program'''
         sys.exit(1)
+
     def help_quit(self):
         print('Help command to exit the program')
 
@@ -51,7 +53,6 @@ class HBNBCommand(cmd.Cmd):
 #     add new functions to the CLI
 
     def do_create(self, cls):
-
         '''class name to create new basemodel instance'''
         if not cls:
             print('** class name missing **')
@@ -87,7 +88,6 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_destroy(self, cls_id):
-
         '''show string representation of instance'''
         # Break the cls_id argument
         args = cls_id.split()
@@ -127,7 +127,6 @@ class HBNBCommand(cmd.Cmd):
                     print(str(obj))
 
     def do_update(self, args):
-
         '''update an object with a new value using its class name and id '''
 
         args_list = args.split()
@@ -173,4 +172,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-

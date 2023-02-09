@@ -9,7 +9,7 @@ class TestCity(unittest.TestCase):
     """Test cases for User subclass."""
 
     def setUp(self):
-        self.testCity= City()
+        self.testCity = City()
 
     def test_City(self):
         """check if city class is subclass of BaseModel."""
@@ -18,6 +18,7 @@ class TestCity(unittest.TestCase):
     def test_state_id(self):
         """Test city.state_id is str attribute."""
         self.assertIsInstance(self.testCity.state_id, str)
+
     def test_City(self):
         """test whether name in city is a string attribute"""
 
