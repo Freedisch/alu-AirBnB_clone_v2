@@ -12,4 +12,3 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(x.created_at, datetime.datetime)
         self.assertIsInstance(x.updated_at, datetime.datetime)
 
-    def test_
